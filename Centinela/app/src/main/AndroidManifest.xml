@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermissions"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"
+        tools:ignore="QueryAllPackagesPermission"/>
+    <uses-permission android:name="android.permission.BIND_DEVICE_ADMIN"/>
+
+    <application
+        android:label="CENTINELA"
+        android:theme="@style/Theme.Centinela"
+        android:allowBackup="false"
+        tools:targetApi="31">
+
+        <activity android:name=".MainActivity" android:exported="true"
+            android:showWhenLocked="true" android:turnScreenOn="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".InterruptActivity" android:exported="false"
+            android:showWhenLocked="true" android:turnScreenOn="true"
+            android:theme="@style/Theme.Centinela.Fullscreen"/>
+        <activity android:name=".SettingsActivity" android:exported="false"
+            android:theme="@style/Theme.Centinela"/>
+        <activity android:name=".CustomQuestionsActivity" android:exported="false"
+            android:theme="@style/Theme.Centinela"/>
+        <activity android:name=".WeeklyMirrorActivity" android:exported="false"
+            android:showWhenLocked="true" android:turnScreenOn="true"
+            android:theme="@style/Theme.Centinela"/>
+        <activity android:name=".DebtActivity" android:exported="false"
+            android:showWhenLocked="true" android:turnScreenOn="true"
+            android:theme="@style/Theme.Centinela"/>
+        <activity android:name=".LockActivity" android:exported="false"
+            android:showWhenLocked="true" android:turnScreenOn="true"
+            android:excludeFromRecents="true"
+            android:theme="@style/Theme.Centinela.Fullscreen"/>
+        <activity android:name=".contract.NightlyContractActivity" android:exported="false"
+            android:theme="@style/Theme.Centinela"/>
+        <activity android:name=".contract.MorningReadingActivity" android:exported="false"
+            android:showWhenLocked="true" android:turnScreenOn="true"
+            android:theme="@style/Theme.Centinela"/>
+        <activity android:name=".sp.SistemaPersonalActivity" android:exported="false"
+            android:theme="@style/Theme.Centinela"/>
+
+        <service android:name=".guardian.GuardianService" android:exported="false"
+            android:foregroundServiceType="mediaPlayback"/>
+        <service android:name=".guardian.AccessibilityGuardian" android:exported="true"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService"/>
+            </intent-filter>
+            <meta-data android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_service_config"/>
+        </service>
+        <service android:name=".contract.MorningReadingCheckService" android:exported="false"/>
+
+        <receiver android:name=".guardian.BootReceiver" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".contract.ScreenStateReceiver" android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.SCREEN_ON"/>
+            </intent-filter>
+        </receiver>
+
+        <!-- Device Owner para Lock Task Mode -->
+        <receiver android:name=".admin.AdminReceiver"
+            android:exported="true"
+            android:permission="android.permission.BIND_DEVICE_ADMIN">
+            <meta-data android:name="android.app.device_admin"
+                android:resource="@xml/device_admin"/>
+            <intent-filter>
+                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED"/>
+            </intent-filter>
+        </receiver>
+
+    </application>
+</manifest>

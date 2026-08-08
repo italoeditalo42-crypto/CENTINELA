@@ -31,21 +31,18 @@ private fun roundedRectPath(x: Float, y: Float, w: Float, h: Float, r: Float): S
 }
 
 private fun ImageVector.Builder.stroke(d: String) {
-    addPath(
-        pathData = addPathNodes(d),
+    path(
         fill = null,
         stroke = SolidColor(Color.Black),
         strokeLineWidth = 1.7f,
         strokeLineCap = StrokeCap.Round,
         strokeLineJoin = StrokeJoin.Round,
+        pathData = addPathNodes(d),
     )
 }
 
 private fun ImageVector.Builder.dot(d: String) {
-    addPath(
-        pathData = addPathNodes(d),
-        fill = SolidColor(Color.Black)
-    )
+    path(fill = SolidColor(Color.Black), pathData = addPathNodes(d))
 }
 
 private fun spIcon(name: String, build: ImageVector.Builder.() -> Unit): ImageVector =
