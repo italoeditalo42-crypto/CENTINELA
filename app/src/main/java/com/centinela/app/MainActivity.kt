@@ -79,6 +79,9 @@ class MainActivity : ComponentActivity() {
                 val lockUntil = System.currentTimeMillis() + (lockMinutes * 60 * 1000L)
                 prefs.edit().putLong("lock_until", lockUntil).apply()
                 startActivity(Intent(this, LockActivity::class.java))
+            },
+            onOpenSistemaPersonal = {
+                startActivity(Intent(this, com.centinela.app.sp.SistemaPersonalActivity::class.java))
             }
         )
     }
@@ -115,7 +118,8 @@ fun CentinelaApp(
     onOpenContract: () -> Unit,
     onOpenCustomQuestions: () -> Unit,
     onOpenSettings: () -> Unit,
-    onOpenLock: () -> Unit
+    onOpenLock: () -> Unit,
+    onOpenSistemaPersonal: () -> Unit
 ) {
     val allGranted = hasUsagePermission && hasOverlayPermission
 
@@ -194,6 +198,7 @@ fun CentinelaApp(
                     MenuButton(text = "✦ CONTRATO NOCTURNO", onClick = onOpenContract)
                     MenuButton(text = "✦ MIS PREGUNTAS Y FRASES", onClick = onOpenCustomQuestions)
                     MenuButton(text = "✦ CONFIGURACIÓN", onClick = onOpenSettings)
+                    MenuButton(text = "✦ SISTEMA PERSONAL", onClick = onOpenSistemaPersonal)
                         MenuButton(text = "⚔ BLOQUEO TOTAL", onClick = onOpenLock)
                 }
             }

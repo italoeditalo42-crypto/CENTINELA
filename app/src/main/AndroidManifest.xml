@@ -51,6 +51,8 @@
         <activity android:name=".contract.MorningReadingActivity" android:exported="false"
             android:showWhenLocked="true" android:turnScreenOn="true"
             android:theme="@style/Theme.Centinela"/>
+        <activity android:name=".sp.SistemaPersonalActivity" android:exported="false"
+            android:theme="@style/Theme.Centinela"/>
 
         <service android:name=".guardian.GuardianService" android:exported="false"
             android:foregroundServiceType="mediaPlayback"/>
