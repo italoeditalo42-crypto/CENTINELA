@@ -6,6 +6,14 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.centinela.app.sp.data.objetivos.AreaDao
+import com.centinela.app.sp.data.objetivos.AreaEntity
+import com.centinela.app.sp.data.objetivos.IndicadorDao
+import com.centinela.app.sp.data.objetivos.IndicadorEntity
+import com.centinela.app.sp.data.objetivos.ObjetivosConverters
+import com.centinela.app.sp.data.objetivos.PuntoDao
+import com.centinela.app.sp.data.objetivos.PuntoEntity
 
 /**
  * Nota de una carpeta/entrada rápida — placeholder mínimo que valida el patrón
@@ -32,9 +40,17 @@ interface SpNoteDao {
     suspend fun delete(note: SpNoteEntity)
 }
 
-@Database(entities = [SpNoteEntity::class], version = 1, exportSchema = false)
+@Database(
+    entities = [SpNoteEntity::class, AreaEntity::class, PuntoEntity::class, IndicadorEntity::class],
+    version = 2,
+    exportSchema = false,
+)
+@TypeConverters(ObjetivosConverters::class)
 abstract class SpDatabase : RoomDatabase() {
     abstract fun noteDao(): SpNoteDao
+    abstract fun areaDao(): AreaDao
+    abstract fun puntoDao(): PuntoDao
+    abstract fun indicadorDao(): IndicadorDao
 
     companion object {
         @Volatile private var INSTANCE: SpDatabase? = null
@@ -43,7 +59,7 @@ abstract class SpDatabase : RoomDatabase() {
             INSTANCE ?: synchronized(this) {
                 INSTANCE ?: Room.databaseBuilder(
                     context.applicationContext, SpDatabase::class.java, "sistema_personal.db"
-                ).build().also { INSTANCE = it }
+                ).fallbackToDestructiveMigration().build().also { INSTANCE = it }
             }
     }
 }

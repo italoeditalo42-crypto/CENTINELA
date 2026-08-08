@@ -13,6 +13,7 @@ import com.centinela.app.sp.modules.antiidentidad.AntiidentidadScreen
 import com.centinela.app.sp.modules.constitucion.ConstitucionScreen
 import com.centinela.app.sp.modules.direccion.DireccionScreen
 import com.centinela.app.sp.modules.identidad.IdentidadScreen
+import com.centinela.app.sp.modules.objetivos.ObjetivosScreen
 import com.centinela.app.sp.modules.placeholder.PlaceholderScreen
 import com.centinela.app.sp.ui.theme.SpBackground
 import com.centinela.app.sp.ui.theme.SpModuleTheme
@@ -53,6 +54,7 @@ fun SistemaPersonalApp() {
                                         "identidad" -> IdentidadScreen()
                                         "antiidentidad" -> AntiidentidadScreen()
                                         "direccion" -> DireccionScreen()
+                                        "objetivos" -> ObjetivosScreen()
                                     }
                                 } else {
                                     PlaceholderScreen(dest)
